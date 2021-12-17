@@ -1,0 +1,62 @@
+class Dok:
+    def __init__(self, data, info, name):
+        self.data = data
+        self.info = info   # общая информация
+        self.name = name   # ФИО
+
+    def display(self):
+        self.name = list(map(lambda x: x.upper(), input("Введите ФИО:").split(" ")))
+        print(self.name)
+
+    def full(self):
+        self.info += input("Введите информацию о документе: ")
+        print(self.info + "Введите больше информации")
+
+
+class Receipt(Dok): # Квитанция
+    def __init__(self, prod="0", requisit="0399913"):
+        super().__init__("BankAcc", "0102", "Перевод денежных средств")
+        self.prod = prod
+        self.requisit = requisit
+
+    def chek(self):   # продукты
+        while True:
+            a =input("Готов к покупке")
+            if a == "stop":
+                break
+            else:
+                self.prod = str(self.prod) + a
+        return self.prod
+
+class Invoice(Receipt):  # Счёт
+    def __init__(self, money):
+        super().__init__( 0 , "Name and else")
+        self.money = money
+        self.money = str(self.money) +  str(input())  # количество наличных
+
+    def broadcast(self, Inform):
+        Inform.info = Inform.info + "= " + str(self.money)  # кладём деньги на счёт
+
+
+class Cheque(Dok):   # Накладная
+    def __init__(self, kind):
+        super().__init__("17.12.2021", "Barter", "Vitali")
+        self.kind = kind
+
+    def vid (self, kind, product, vehicle):
+        if kind == 1:
+             print(product.data)
+             print(product.info)
+        else:
+            print(vehicle.requisit)
+
+list1 = Receipt()
+
+list2 = Cheque(1)
+Inform = Dok("16.12.2021", "BankAcc ", "Vikysik")
+Inform.display()
+Inform.full()
+Cash1 = Invoice(1)
+Cash1.broadcast(Inform)
+list2.vid(Inform.info, Inform.data, list1)
+print(list1.chek())
